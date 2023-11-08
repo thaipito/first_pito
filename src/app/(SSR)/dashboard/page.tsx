@@ -1,19 +1,14 @@
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import Image from "next/legacy/image";
+import Image from "next/image";
 
 export default function DashBoardPage() {
   return (
     <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
-          <Image
-            src={item.img}
-            alt={item.title}
-            loading="lazy"
-            layout='fixed'
-          />
+          <Image src={item.img} alt={item.title} loading="lazy" />
         </ImageListItem>
       ))}
     </ImageList>
