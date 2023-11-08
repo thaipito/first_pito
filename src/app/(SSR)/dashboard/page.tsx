@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 
 export default function DashBoardPage() {
   return (
