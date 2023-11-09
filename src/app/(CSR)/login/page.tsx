@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Button,
@@ -14,11 +14,39 @@ import {
 import React, { FormHTMLAttributes, useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+
+type DataLogin = {
+  email: string;
+  password: string;
+};
 
 const LayoutPage = () => {
+
+  const router = useRouter()
+
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const mutation = useMutation({
+    mutationFn: (data: DataLogin) => {
+      return fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+    },
+    onSuccess: async (data) => {
+      const res = await data.json();
+      if(res.status === 200){
+        router.push('/home')
+      }
+    },
+  });
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -38,6 +66,10 @@ const LayoutPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    mutation.mutate({
+      email,
+      password,
+    });
   };
 
   return (

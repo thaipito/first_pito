@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import ThemeRegistry from "../../theme/ThemeRegistry";
+import ReactQueryProvider from "@/provider/ReactQueryProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,10 +14,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <ThemeRegistry>
-        <body>{children}</body>
-      </ThemeRegistry>
+    <html lang="en" suppressHydrationWarning>
+      <body suppressHydrationWarning>
+        <ReactQueryProvider>
+          <ThemeRegistry>{children}</ThemeRegistry>
+        </ReactQueryProvider>
+      </body>
     </html>
   );
 }
